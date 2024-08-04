@@ -132,7 +132,7 @@ const authenticateUser = async (email, password) => {
   }
 };
 
-export default {
+export {
   createUser,
   getAllUsers,
   getUserById,

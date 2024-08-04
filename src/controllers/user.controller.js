@@ -1,14 +1,17 @@
-import deleteUser from "../models/user.model.js";
-import authenticateUser from "../models/user.model.js";
-import creteUser from "../models/user.model.js";
-import updateUser from "../models/user.model.js";
-import getUserById from "../models/user.model.js";
-import getAllUsers from "../models/user.model.js";
+import {deleteUser} from "../models/user.model.js";
+import {createUser} from "../models/user.model.js";
+import {updateUser} from "../models/user.model.js";
+import {getUserById} from "../models/user.model.js";
+import {getAllUsers} from "../models/user.model.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 import { ApiError } from "../utils/ApiError.js";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const generateAccessToken = (userId) => {
+
   return jwt.sign({ _id: userId }, process.env.ACCESS_TOKEN_SECRET, {
     expiresIn: process.env.ACCESS_TOKEN_EXPIRES_IN || "1h",
   });
@@ -100,7 +103,13 @@ export const deleteUserByIdController = async (req, res, next) => {
 export const loginUserController = async (req, res, next) => {
   const { email, password } = req.body;
   try {
-    const user = await authenticateUser(email, password);
+    // const user = await authenticateUser(email, password);
+    // hardcoded authentication for now
+    const user = {
+      _id: '60c0b0a1b4c3f00015f3f0d7',
+      email: 'ashish@gmail.com',
+      password: '$2b$10$Fw8G6yj1s8z5zv9j6Ww7xu2S5W9d6lUk8LgQ6lJj7b4g9RJvO7c7u',
+  }
     if (!user) {
       throw new ApiError(401, "Invalid email or password");
     }
@@ -112,7 +121,7 @@ export const loginUserController = async (req, res, next) => {
       sameSite: "strict",
     });
 
-    res.json(new ApiResponse(200, { user }, "Login successful"));
+    res.json(new ApiResponse(200, { accessToken }, "Login successful"));
   } catch (error) {
     next(new ApiError(401, "Authentication failed", [], error.stack));
   }
