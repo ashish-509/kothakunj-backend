@@ -84,12 +84,3 @@ export const getLocationsByCityHandler = async (req, res, next) => {
   }
 };
 
-
-export default {
-  createLocationHandler,
-  getAllLocationsHandler,
-  getLocationByIdHandler,
-  updateLocationByIdHandler,
-  deleteLocationByIdHandler,
-  getLocationsByCityHandler,
-};

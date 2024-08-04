@@ -93,4 +93,10 @@ const deleteFlat = async (id) => {
   return rows[0];
 };
 
-export { createFlat, getAllFlats, getFlatById, updateFlat, deleteFlat };
+export { 
+  createFlat, 
+  getAllFlats, 
+  getFlatById, 
+  updateFlat, 
+  deleteFlat 
+};

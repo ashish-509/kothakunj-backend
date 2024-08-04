@@ -89,11 +89,4 @@ export const getReviewsByRoomIdHandler = async (req, res, next) => {
   }
 };
 
-export default {
-  createReviewHandler,
-  getAllReviewsHandler,
-  getReviewByIdHandler,
-  updateReviewByIdHandler,
-  deleteReviewByIdHandler,
-  getReviewsByRoomIdHandler,
-};
+
