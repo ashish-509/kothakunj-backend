@@ -1,5 +1,3 @@
-// src/config/db.js
-
 import pkg from 'pg';
 const { Pool } = pkg;
 import dotenv from 'dotenv';
@@ -12,6 +10,9 @@ const pool = new Pool({
   port: parseInt(process.env.DB_PORT, 10),
   password: process.env.DB_PASS,
   database: process.env.DB_NAME,
+  ssl: {
+    rejectUnauthorized: false // Set to true if your database requires certificate validation
+  }
 });
 
 pool.on('connect', () => {
