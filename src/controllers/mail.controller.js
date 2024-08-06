@@ -6,10 +6,10 @@ export const sendMail = async (req, res) => {
 
     // Set up the transporter with your email service credentials
     let transporter = nodemailer.createTransport({
-        service: 'gmail', // Use your email service
+        service: 'gmail',
         auth: {
-            user: process.env.EMAIL_USER, // Your email address
-            pass: process.env.EMAIL_PASS, // Your email password
+            user: process.env.EMAIL_USER,
+            pass: process.env.EMAIL_PASS, 
         },
     });
 
