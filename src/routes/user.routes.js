@@ -1,32 +1,31 @@
 import express from "express";
 import {
-  registerUserController,
-  loginUserController,
-  getUserProfileController,
-  updateUserProfileController,
   getAllUsersController,
   getUserByIdController,
+  registerUserController,
   updateUserByIdController,
   deleteUserByIdController,
+  loginUserController,
 } from "../controllers/user.controller.js";
-import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const router = express.Router();
 
+// Register a new user
 router.post("/register", registerUserController);
 
+// Login a user
 router.post("/login", loginUserController);
 
-router.get("/profile", verifyJWT, getUserProfileController);
+// Get all users
+router.get("/", getAllUsersController);
 
-router.put("/profile", verifyJWT, updateUserProfileController);
+// Get a user by ID
+router.get("/:id", getUserByIdController);
 
-router.get("/", verifyJWT, getAllUsersController);
+// Update a user by ID
+router.put("/:id", updateUserByIdController);
 
-router.get("/:id", verifyJWT, getUserByIdController);
-
-router.put("/:id", verifyJWT, updateUserByIdController);
-
-router.delete("/:id", verifyJWT, deleteUserByIdController);
+// Delete a user by ID
+router.delete("/:id", deleteUserByIdController);
 
 export default router;

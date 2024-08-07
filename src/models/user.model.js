@@ -1,5 +1,3 @@
-// clear
-
 import pool from "../config/db.js";
 import bcrypt from "bcryptjs";
 
@@ -20,7 +18,7 @@ const createUser = async (userData) => {
       phone_number,
       address,
       email,
-      password,
+      hashedPassword,
     ];
     const { rows } = await pool.query(queryText, values);
     return rows[0];
@@ -56,6 +54,19 @@ const getUserById = async (id) => {
   }
 };
 
+// Get a user by email
+const getUserByEmail = async (email) => {
+  try {
+    const queryText =
+      "SELECT user_id, first_name, last_name, phone_number, address, email, password, created_at, updated_at FROM users WHERE email = $1";
+    const { rows } = await pool.query(queryText, [email]);
+    return rows[0];
+  } catch (error) {
+    console.error("Error fetching user by email:", error);
+    throw new Error("Failed to fetch user");
+  }
+};
+
 // Update a user
 const updateUser = async (id, userData) => {
   const { first_name, last_name, phone_number, address, email, password } =
@@ -67,7 +78,7 @@ const updateUser = async (id, userData) => {
     }
     const queryText = `
       UPDATE users
-      SET first_name  = $1, last_name = $2, phone_number = $3, address = $4, email = $5, password = COALESCE($6, password), updated_at = NOW() 
+      SET first_name = $1, last_name = $2, phone_number = $3, address = $4, email = $5, password = COALESCE($6, password), updated_at = NOW()
       WHERE user_id = $7
       RETURNING user_id, first_name, last_name, phone_number, address, email, created_at, updated_at
     `;
@@ -136,6 +147,7 @@ export {
   createUser,
   getAllUsers,
   getUserById,
+  getUserByEmail,
   updateUser,
   deleteUser,
   authenticateUser,
