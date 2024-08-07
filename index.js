@@ -62,7 +62,6 @@ app.use("/api/v1/search", searchRouter);
 async function testConnection() {
   try {
     const client = await pool.connect();
-    console.log("Connected to the PostgreSQL database.");
     client.release();
   } catch (error) {
     console.error("Error while connecting to database:", error);

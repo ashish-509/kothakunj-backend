@@ -124,7 +124,9 @@ const authenticateUser = async (email, password) => {
     const queryText = "SELECT * FROM users WHERE email = $1";
     const { rows } = await pool.query(queryText, [email]);
     const user = rows[0];
-    if (user && (await bcrypt.compare(password, user.password))) {
+    console.log("Email exists")
+    if (user && password === user.password) {
+      console.log("auth")
       return {
         user_id: user.user_id,
         first_name: user.first_name,

@@ -113,9 +113,10 @@ export const loginUserController = async (req, res, next) => {
     }
 
     const token = generateAccessToken(user.user_id);
-    res.json(
-      new ApiResponse(200, { user, token }, "User logged in successfully")
-    );
+    console.log(token);
+    return res.status(200).json(new ApiResponse(200, { user: user, token:token }, 'User created successfully, OTP sent to your email',));
+
+    
   } catch (error) {
     next(new ApiError(500, "Failed to login user", [], error.stack));
   }
