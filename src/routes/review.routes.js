@@ -5,7 +5,6 @@ import {
   getReviewByIdHandler,
   updateReviewByIdHandler,
   deleteReviewByIdHandler,
-  // getReviewsByPropertyIdHandler,
 } from "../controllers/review.controller.js";
 import { verifyJWT } from "../middlewares/auth.middleware.js";
 
@@ -21,6 +20,5 @@ router.put("/reviews/:id", verifyJWT, updateReviewByIdHandler);
 
 router.delete("/reviews/:id", verifyJWT, deleteReviewByIdHandler);
 
-// router.get("/reviews/property/:propertyId", getReviewsByPropertyIdHandler);
-
 export default router;
+

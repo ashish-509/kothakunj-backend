@@ -48,11 +48,16 @@ export const createRoomHandler = async (req, res, next) => {
     furnished,
     preferredGender,
     description,
-    houseFrontPicture,
-    gallery,
     location_id,
     user_id,
   } = req.body;
+
+  const houseFrontPicture = req.files.houseFrontPicture
+    ? req.files.houseFrontPicture[0].filename
+    : null;
+  const gallery = req.files.gallery
+    ? req.files.gallery.map((file) => file.filename)
+    : [];
 
   try {
     const newRoom = await createRoom({
