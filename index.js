@@ -21,12 +21,12 @@ const port = process.env.PORT || 3000;
 
 app.use(
   cors({
-    origin: "https://kothakunj.netlify.app",
-    origin: "https://kothakunj.vercel.app/",
-    origin: "https://kothakunj.netlify.app/",
-    origin: "https://kothakunj.vercel.app",
-    origin: "http://localhost:3000/",
-    origin: "https://kothakunj-34fotlfkq-ashishs-projects-fb6088a3.vercel.app/",
+    origin: [
+      "https://kothakunj.netlify.app",
+      "https://kothakunj.vercel.app",
+      "http://localhost:3000",
+      "https://kothakunj-34fotlfkq-ashishs-projects-fb6088a3.vercel.app",
+    ],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
