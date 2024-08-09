@@ -108,16 +108,18 @@ export const loginUserController = async (req, res, next) => {
   const { email, password } = req.body;
   try {
     const user = await authenticateUser(email, password);
-    if (!user) {
+    if (!user)
+	{
       throw new ApiError(401, "Invalid email or password");
     }
 
     const token = generateAccessToken(user.user_id);
-    console.log(token);
-    return res.status(200).json(new ApiResponse(200, { user: user, token:token }, 'User created successfully, OTP sent to your email',));
+
+    return res.status(200).json(new ApiResponse(200, {user, token}, "Signed in sucessfully"));
 
     
-  } catch (error) {
+  }
+	catch (error) {
     next(new ApiError(500, "Failed to login user", [], error.stack));
   }
 };
