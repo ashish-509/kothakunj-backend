@@ -34,57 +34,60 @@ export const getRoomByIdHandler = async (req, res, next) => {
 
 // Create a new room
 export const createRoomHandler = async (req, res, next) => {
-  const {
-    city,
-    area,
-    bedrooms,
-    bathrooms,
-    roomSize,
-    kitchenRooms,
-    extraRoom,
-    rent,
-    priceRange,
-    amenities,
-    furnished,
-    preferredGender,
-    description,
-    location_id,
-    user_id,
-  } = req.body;
+	const {
+		city,
+		area,
+		bedrooms,
+		bathrooms,
+		roomSize,
+		kitchenRooms,
+		extraRoom,
+		rent,
+		priceRange,
+		amenities,
+		furnished,
+		preferredGender,
+		description,
+		location_id,
+		user_id,
+	} = req.body;
 
-  const houseFrontPicture = req.files.houseFrontPicture
-    ? req.files.houseFrontPicture[0].filename
-    : null;
-  const gallery = req.files.gallery
-    ? req.files.gallery.map((file) => file.filename)
-    : [];
+	console.log(req.body);
 
-  try {
-    const newRoom = await createRoom({
-      city,
-      area,
-      bedrooms,
-      bathrooms,
-      roomSize,
-      kitchenRooms,
-      extraRoom,
-      rent,
-      priceRange,
-      amenities,
-      furnished,
-      preferredGender,
-      description,
-      houseFrontPicture,
-      gallery,
-      location_id,
-      user_id,
-    });
-    res
-      .status(201)
-      .json(new ApiResponse(201, newRoom, "Room created successfully"));
-  } catch (error) {
-    next(new ApiError(400, "Failed to create room", [], error.stack));
-  }
+	//const houseFrontPicture = req.files.houseFrontPicture ? req.files.houseFrontPicture[0].filename : null;
+	//const gallery = req.files.gallery ? req.files.gallery.map((file) => file.filename) : [];
+	
+	//for some reason the images are not being sent over; ashish has probably not implemented it
+	//on top of that i'm pretty sure that way of accessing is wrong
+
+	const houseFrontPicture = null;
+	const gallery = null;
+	try {
+		const newRoom = await createRoom({
+			city,
+			area,
+			bedrooms,
+			bathrooms,
+			roomSize,
+			kitchenRooms,
+			extraRoom,
+			rent,
+			priceRange,
+			amenities,
+			furnished,
+			preferredGender,
+			description,
+			houseFrontPicture,
+			gallery,
+			location_id,
+			user_id,
+		});
+		res
+			.status(201)
+			.json(new ApiResponse(201, newRoom, "Room created successfully"));
+	} catch (error) {
+		next(new ApiError(400, "Failed to create room", [], error.stack));
+	}
 };
 
 // Update a room by ID
