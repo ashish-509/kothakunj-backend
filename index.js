@@ -22,6 +22,9 @@ const port = process.env.PORT || 3000;
 app.use(
   cors({
     origin: "https://kothakunj.netlify.app",
+    origin: "https://kothakunj.vercel.app",
+    origin: "https://kothakunj-frontend.vercel.app",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
