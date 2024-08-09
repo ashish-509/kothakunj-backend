@@ -19,34 +19,14 @@ dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 
-// // Define CORS options
-const allowedOrigins = [
-  'http://localhost:3000',    
-  'http://localhost:5173',    
-  'https://kothakunj.netlify.app/',
-  '*',
-];
+app.use(
+  cors({
+    origin: "https://kothakunj.netlify.app",
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true,
+  })
+);
 
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (allowedOrigins.indexOf(origin) !== -1 || !origin) 
-	  {
-      callback(null, true);
-    }
-	else
-	{
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  methods: 'GET,HEAD,OPTIONS,POST,PUT,DELETE',
-  allowedHeaders: 'Origin, Content-Type, Accept, Authorization',
-  credentials: true // Enable credentials
-};
-
-
-
-app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true, limit: "16kb" }));
 app.use(express.json());
 app.use(express.static("public"));
